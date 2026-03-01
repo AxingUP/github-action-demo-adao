@@ -1,2 +1,2 @@
-# CS2-REP-VALUE
-AI自动化探测CS2仓库饰品价格变动
+# github-action-demo-adao
+自动化获取AI相关的咨询信息
