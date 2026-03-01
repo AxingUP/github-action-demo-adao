@@ -1,0 +1,34 @@
+{
+  "sources": [
+    {
+      "name": "OpenAI Blog",
+      "url": "https://openai.com/blog/rss.xml",
+      "type": "rss",
+      "enabled": true
+    },
+    {
+      "name": "Google AI Blog",
+      "url": "https://ai.googleblog.com/feeds/posts/default",
+      "type": "rss",
+      "enabled": true
+    },
+    {
+      "name": "MIT Technology Review",
+      "url": "https://www.technologyreview.com/feed/",
+      "type": "rss",
+      "enabled": true
+    },
+    {
+      "name": "Hacker News AI",
+      "url": "https://hnrss.org/frontpage/AI",
+      "type": "rss",
+      "enabled": true
+    },
+    {
+      "name": "The Verge AI",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/rss/index.xml",
+      "type": "rss",
+      "enabled": true
+    }
+  ]
+}

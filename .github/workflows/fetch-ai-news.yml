@@ -1,0 +1,89 @@
+name: AI News Fetcher
+
+# 触发条件
+on:
+  # 定时触发：每天北京时间早上7:00 (UTC 时间 23:00)
+  schedule:
+    - cron: '0 23 * * *'
+
+  # 手动触发（方便测试）
+  workflow_dispatch:
+
+# 权限设置
+permissions:
+  contents: write
+
+jobs:
+  fetch-ai-news:
+    name: 获取 AI 资讯
+    runs-on: ubuntu-latest
+
+    steps:
+      # 步骤1：检出代码
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # 步骤2：设置 Python 环境
+      - name: 设置 Python 环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      # 步骤3：安装依赖
+      - name: 安装依赖
+        run: |
+          pip install -r requirements.txt
+
+      # 步骤4：运行资讯获取脚本
+      - name: 运行资讯获取脚本
+        id: fetch-news
+        run: |
+          python scripts/fetch_ai_news.py
+
+      # 步骤5：显示结果
+      - name: 显示结果
+        run: |
+          echo "最新生成的资讯报告："
+          ls -lh ai_news/
+          if [ -d ai_news ]; then
+            LATEST_FILE=$(ls -t ai_news/ | head -1)
+            echo "文件内容："
+            cat "ai_news/$LATEST_FILE"
+          fi
+
+      # 步骤6：提交和推送生成的文件
+      - name: 提交变更
+        if: success()
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add ai_news/
+          git diff --staged --quiet || git commit -m "Update AI News $(date +%Y-%m-%d)"
+
+      # 步骤7：推送到仓库
+      - name: 推送变更
+        if: success()
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
+      # 步骤8：生成 Summary（在 GitHub Actions 页面显示）
+      - name: 生成 Summary
+        if: success()
+        run: |
+          if [ -d ai_news ]; then
+            LATEST_FILE=$(ls -t ai_news/ | head -1)
+            if [ -f "ai_news/$LATEST_FILE" ]; then
+              echo "## 📰 AI 资讯日报" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "查看完整报告请访问: [ai_news/$LATEST_FILE](https://github.com/${{ github.repository }}/blob/main/ai_news/$LATEST_FILE)" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "---" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              cat "ai_news/$LATEST_FILE" >> $GITHUB_STEP_SUMMARY
+            fi
+          fi

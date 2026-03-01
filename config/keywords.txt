@@ -1,0 +1,89 @@
+AI
+Artificial Intelligence
+Machine Learning
+Deep Learning
+Neural Network
+NLP
+Natural Language Processing
+LLM
+Large Language Model
+GPT
+ChatGPT
+Claude
+Gemini
+Transformer
+Computer Vision
+CV
+Reinforcement Learning
+Generative AI
+AGI
+Artificial General Intelligence
+Multimodal
+AI Agent
+Prompt Engineering
+Fine-tuning
+RAG
+Retrieval Augmented Generation
+Hallucination
+Semantic Search
+Embedding
+Vector Database
+Diffusion Model
+Stable Diffusion
+Midjourney
+DALL-E
+Sora
+OpenAI
+Google AI
+Anthropic
+Microsoft AI
+Meta AI
+Tesla AI
+xAI
+Perplexity
+Cohere
+Hugging Face
+Mistral
+Llama
+Foundation Model
+Pre-training
+Inference
+Token
+Attention Mechanism
+Self-Attention
+BERT
+T5
+ViT
+Vision Transformer
+YOLO
+Convolutional Neural Network
+CNN
+RNN
+LSTM
+GRU
+GAN
+Generative Adversarial Network
+Autoencoder
+VAE
+Variational Autoencoder
+Diffusion
+Latent Space
+Zero-shot
+Few-shot
+One-shot
+Chain-of-Thought
+CoT
+Reasoning
+AI Alignment
+AI Safety
+Explainable AI
+XAI
+Federated Learning
+Transfer Learning
+Supervised Learning
+Unsupervised Learning
+Self-supervised Learning
+Semi-supervised Learning
+Active Learning
+Online Learning
+Meta-learning
