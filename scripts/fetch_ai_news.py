@@ -288,6 +288,18 @@ def main():
     print("AI 资讯获取脚本执行完成")
     print("=" * 60)
 
+    # 发送邮件通知
+    if os.getenv('SMTP_USERNAME') and os.getenv('SMTP_PASSWORD'):
+        print("\n[INFO] 正在发送邮件通知...")
+        try:
+            from send_email import send_news_email
+            if send_news_email(output_file):
+                print("[INFO] 邮件发送成功")
+            else:
+                print("[WARN] 邮件发送失败")
+        except Exception as e:
+            print(f"[ERROR] 邮件发送出错: {e}")
+
     return output_file
 
 
