@@ -52,7 +52,7 @@ jobs:
 
       # 步骤4.5：发送邮件通知
       - name: 发送邮件通知
-        if: success() && secrets.SMTP_USERNAME != ''
+        if: success()
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
@@ -61,6 +61,12 @@ jobs:
           EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
         run: |
+          # 检查是否配置了邮件环境变量
+          if [ -z "$SMTP_USERNAME" ] || [ -z "$SMTP_PASSWORD" ]; then
+            echo "[INFO] 未配置邮件环境变量，跳过邮件发送"
+            exit 0
+          fi
+
           if [ -d ai_news ]; then
             LATEST_FILE=$(ls -t ai_news/ | head -1)
             echo "发送文件: ai_news/$LATEST_FILE"
