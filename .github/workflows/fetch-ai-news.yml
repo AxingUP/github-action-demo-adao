@@ -50,29 +50,6 @@ jobs:
         run: |
           python scripts/fetch_ai_news.py
 
-      # 步骤4.5：发送邮件通知
-      - name: 发送邮件通知
-        if: success()
-        env:
-          SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
-          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
-          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
-          EMAIL_TO: ${{ secrets.EMAIL_TO }}
-        run: |
-          # 检查是否配置了邮件环境变量
-          if [ -z "$SMTP_USERNAME" ] || [ -z "$SMTP_PASSWORD" ]; then
-            echo "[INFO] 未配置邮件环境变量，跳过邮件发送"
-            exit 0
-          fi
-
-          if [ -d ai_news ]; then
-            LATEST_FILE=$(ls -t ai_news/ | head -1)
-            echo "发送文件: ai_news/$LATEST_FILE"
-            python scripts/send_email.py "ai_news/$LATEST_FILE"
-          fi
-
       # 步骤5：显示结果
       - name: 显示结果
         run: |
